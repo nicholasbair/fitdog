@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="col-md-8 box-shadow card dog-card">
+    <div class="align-middle">
+      <h4>
+        <a href="/activities/<%= @activity.id %>">
+          <%= @activity.generate_story %>
+        </a>
+      </h4>
+    </div>
+  </div>
+</div>
+
+<% if @activity.user_id == current_user.id %>
+  <div class="row">
+    <div class="col-md-1">
+      <a href="/activities/<%= @activity.id %>/edit">
+        <button class="btn btn-success" type="button">Edit activity</button>
+      </a>
+    </div>
+
+    <div class="col-md-1 button-spacing">
+      <form class="" action="/activities/<%= @activity.id %>/delete" method="post">
+        <input type="hidden" name="_method" value="DELETE">
+        <button class="btn btn-danger" type="submit">Delete activity</button>
+      </form>
+    </div>
+  </div>
+<% end %>

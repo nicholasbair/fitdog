@@ -1,0 +1,34 @@
+<% if flash.has?(:message) %>
+  <div class="alert alert-danger alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <%= flash[:message] %>
+  </div>
+<% end %>
+
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-6 box-shadow card">
+    <h1>Edit an activity</h1>
+    <form action="/activities/<%= @activity.id %>" method="post">
+      <input type="hidden" name="_method" value="PATCH">
+      <div class="form-group">
+        <input type="text" class="form-control" name="name" value="<%= @activity.name %>" required>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" name="duration" value="<%= @activity.duration %>" required>
+      </div>
+      <div class="form-group">
+        <label class="control-label">Dogs:</label>
+        <% @dogs.each do |dog| %>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="dogs[]" value="<%= dog.id %>" <%= 'checked' if @activity.dog_ids.include?(dog.id) %>>
+              <%= dog.name %>
+            </label>
+          </div>
+        <% end %>
+      </div>
+      <button class="btn btn-success" type="submit" name="submit">Update activity</button>
+    </form>
+  </div>
+</div>

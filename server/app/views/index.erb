@@ -1,0 +1,9 @@
+<div class="jumbotron box-shadow">
+  <h1>Welcome to Dogtracker</h1>
+  <p>A Sinatra web app for a dog's quantified life.</p>
+  <% if logged_in? %>
+    <p><a class="btn btn-primary btn-lg" href="/activities" role="button">Get Started</a></p>
+  <% else %>
+    <p><a class="btn btn-primary btn-lg" href="/signup" role="button">Get Started</a></p>
+  <% end %>
+</div>

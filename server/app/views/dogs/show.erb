@@ -1,0 +1,61 @@
+<div class="row">
+  <div class="col-md-3 box-shadow card dog-card">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="avatar-container">
+          <img class="avatar" src="http://via.placeholder.com/50x50" alt="">
+        </div>
+      </div>
+      <div class="col-md-8 dog-name">
+        <h4>
+          <a href="/dogs/<%= @dog.id %>">
+            <%= @dog.name %>
+          </a>
+        </h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <% if @dog.activities.size >= 10 %>
+          <embed src="//sparksvg.me/circle.svg?0,<%= @dog.parse_activity_data %>&rgba:51,122,183,0.7&current&max&min" width="200" height="60" type="image/svg+xml">
+        <% else %>
+          <h5 class="pull-center">Add more activities to see graph</h5>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% if @dog.user_id == current_user.id %>
+  <div class="row">
+    <div class="col-md-1">
+      <a href="/dogs/<%= @dog.id %>/edit">
+        <button class="btn btn-success" type="button">Edit dog</button>
+      </a>
+    </div>
+
+    <div class="col-md-1">
+      <form class="" action="/dogs/<%= @dog.id %>/delete" method="post">
+        <input type="hidden" name="_method" value="DELETE">
+        <button class="btn btn-danger" type="submit">Delete dog</button>
+      </form>
+    </div>
+  </div>
+<% end %>
+
+<br><br>
+
+<div class="row">
+  <h4>Recent Activities</h4>
+  <table class="table table-hover">
+    <% @dog.activities.each do |activity| %>
+      <tr>
+        <td>
+          <a href="/activities/<%= activity.id %>">
+            <%= activity.generate_story %>
+          </a>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>
