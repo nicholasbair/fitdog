@@ -1,7 +1,4 @@
-require 'rack-flash'
-
 class ActivityController < ApplicationController
-  use Rack::Flash
 
   before do
     if !logged_in?
@@ -31,10 +28,8 @@ class ActivityController < ApplicationController
         duration: params[:duration],
         dog_ids: params[:dogs]
       ).save
-      flash[:message] = "Successfully created an activity!"
       redirect '/activities'
     else
-      flash[:message] = "Please select at least one dog."
       @dogs = current_user.dogs
       erb :'/activities/new'
     end
@@ -58,10 +53,8 @@ class ActivityController < ApplicationController
       duration: params[:duration],
       dog_ids: params[:dogs]
       )
-      flash[:message] = "Successfully updated an activity!"
       redirect '/activities'
     else
-      flash[:message] = "Please select at least one dog."
       @activity = Activity.find(params[:id])
       @dogs = current_user.dogs
       erb :'activities/edit'
@@ -72,7 +65,6 @@ class ActivityController < ApplicationController
     activity = Activity.find(params[:id])
     if activity.user_id == current_user.id
       Activity.destroy(activity.id)
-      flash[:message] = "Successfully deleted an activity!"
     end
     redirect '/activities'
   end
