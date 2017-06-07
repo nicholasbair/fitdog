@@ -3,6 +3,8 @@ ENV['SINATRA_ENV'] ||= "development"
 require 'dotenv/load'
 require 'bundler/setup'
 require 'securerandom'
+require 'sinatra/namespace'
+
 
 Bundler.require(:default, ENV['SINATRA_ENV'])
 
