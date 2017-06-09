@@ -18,7 +18,8 @@ class ActivityController < ApplicationController
     end
 
     get '/activities/:id' do
-      Activity.find(params[:id]).to_json
+      req = parseRequest(request)
+      Activity.find(req[:id]).to_json
     end
 
     # -------------------------------------------------------

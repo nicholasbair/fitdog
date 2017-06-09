@@ -1,25 +1,56 @@
 import React, { Component } from 'react';
-import { Text, TouchableOpacity, View, LayoutAnimation } from 'react-native';
-import { connect } from 'react-redux';
+import { Text, TouchableHighlight, View } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import { CardSection } from './common';
-import * as actions from '../actions';
 
 // Props
 // {"activity":{"id":49,"name":"walk","duration":15,"user_id":19}}
 
- const ListItem = (props) => {
-   const { name, duration } = props.activity;
+class ListItem extends Component {
+  handlePress() {
+    Actions.activityDetail({ activity: this.props.activity });
+  }
 
-  return (
-    <View>
-      <CardSection>
-        <Text style={styles.titleStyle}>
-          {name} {'->'} {duration}
-        </Text>
-      </CardSection>
-    </View>
-  );
-};
+  render() {
+    const { name, duration } = this.props.activity;
+
+    return (
+      <TouchableHighlight
+        onPress={this.handlePress.bind(this)}
+      >
+        <View>
+          <CardSection>
+            <Text style={styles.titleStyle}>
+              {name} {'->'} {duration}
+            </Text>
+          </CardSection>
+        </View>
+      </TouchableHighlight>
+    );
+  }
+}
+
+//  const ListItem = (props) => {
+//   const { name, duration } = props.activity;
+//
+//   const handlePress = () => {
+//     Actions.activityDetail();
+//   };
+//
+//   return (
+//     <TouchableOpacity
+//       onPress={handlePress}
+//     >
+//       <View>
+//         <CardSection>
+//           <Text style={styles.titleStyle}>
+//             {name} {'->'} {duration}
+//           </Text>
+//         </CardSection>
+//       </View>
+//     </TouchableOpacity>
+//   );
+// };
 
 const styles = {
   titleStyle: {

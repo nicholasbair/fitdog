@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { ListView } from 'react-native';
 import { connect } from 'react-redux';
 import { fetchActivities } from '../actions';
-import { ListView, View, Text } from 'react-native';
+import { Spinner } from './common';
 import ListItem from './ListItem';
 
 class ActivityList extends Component {
@@ -29,20 +30,29 @@ class ActivityList extends Component {
     );
   }
 
-  render() {
+  renderList() {
+    if (this.props.loading) {
+      return <Spinner size="large" />;
+    }
+
     return (
       <ListView
+        enableEmptySections
         dataSource={this.dataSource}
         renderRow={this.renderRow}
       />
     );
   }
+
+  render() {
+    return this.renderList();
+  }
 }
 
 const mapStateToProps = state => {
-  const { activities } = state;
+  const { activities, loading } = state.activities;
 
-  return { activities };
+  return { activities, loading };
 };
 
 export default connect(mapStateToProps, { fetchActivities })(ActivityList);
