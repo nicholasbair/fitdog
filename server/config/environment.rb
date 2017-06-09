@@ -1,6 +1,8 @@
 ENV['SINATRA_ENV'] ||= "development"
 
-require 'dotenv/load'
+require 'dotenv'
+Dotenv.load('../.env')
+
 require 'bundler/setup'
 require 'securerandom'
 require 'sinatra/namespace'

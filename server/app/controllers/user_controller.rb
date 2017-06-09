@@ -3,11 +3,6 @@ require 'json';
 class UserController < ApplicationController
   register Sinatra::Namespace
 
-
-  # get '/signup' do
-  #   erb :'users/signup'
-  # end
-
   namespace '/api/v1' do
 
     before do
@@ -28,20 +23,14 @@ class UserController < ApplicationController
       end
     end
 
-    # get '/login' do
-    #   erb :'users/login'
-    # end
-
     post '/login' do
       req = parseRequest(request)
       user = User.find_by(username: req[:username].downcase)
       if user && user.authenticate(req[:password])
-        user.to_json
-        # session[:user_id] = user.id
+        # binding.pry
+        { token: token(user.username) }.to_json
       else
-        # status 500
-        response.body << {error: "Authentication Error"}
-      #   erb :'users/login'
+        halt 401
       end
     end
 

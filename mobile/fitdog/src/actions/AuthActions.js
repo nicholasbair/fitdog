@@ -1,3 +1,4 @@
+import { AsyncStorage } from 'react-native';
 import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
 import {
@@ -32,7 +33,11 @@ export const loginUser = ({ username, password }) => {
       username, password
     })
     .then(response => {
-      console.log(response.data);
+      // console.log(response.data);
+      AsyncStorage.setItem('@fitdog:session', response.data.token);
+      AsyncStorage.getItem('@fitdog:session').then(token => {
+        console.log(token);
+      });
     })
     .catch(error => {
       console.log(error.message);
