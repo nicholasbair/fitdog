@@ -1,6 +1,6 @@
 import { AsyncStorage } from 'react-native';
 import axios from 'axios';
-import { ROOT } from '../CONFIG';
+import { ROOT } from '../config';
 import {
   FETCH_ACTIVITIES_SUCCESS,
   FETCH_ACTIVITIES

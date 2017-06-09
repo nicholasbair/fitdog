@@ -1,38 +1,29 @@
 class DogController < ApplicationController
   register Sinatra::Namespace
 
-  # before do
-  #   if !logged_in?
-  #     redirect '/login'
-  #   end
-  # end
-
   namespace '/api/v1' do
+
+    before do
+      if !logged_in?(request.env["HTTP_AUTHORIZATION"])
+        halt 401
+      end
+    end
 
     before do
       content_type 'application/json'
     end
 
-    # TODO: this route should be scoped to the user
     get '/dogs' do
-      Dog.all.to_json
-      # @dogs = current_user.dogs
-      # erb :'dogs/index'
+      current_user(token).dogs
     end
 
     get '/dogs/:id' do
-      # @dog =
-      Dog.find(params[:id]).to_json
-      # erb :'dogs/show'
+      req = parseRequest(request)
+      Dog.find(req[:id]).to_json
     end
-
 
     # -------------------------------------------------------
     # These do not work yet
-
-    get '/dogs/new' do
-      erb :'dogs/new'
-    end
 
     post '/dogs' do
       dog = current_user.dogs.build(name: params[:name])
@@ -40,15 +31,6 @@ class DogController < ApplicationController
         redirect '/dogs'
       else
         erb :'dogs/new'
-      end
-    end
-
-    get '/dogs/:id/edit' do
-      @dog = Dog.find(params[:id])
-      if @dog.user_id == current_user.id
-        erb :'dogs/edit'
-      else
-        redirect '/dogs'
       end
     end
 

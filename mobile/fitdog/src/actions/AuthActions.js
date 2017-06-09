@@ -1,7 +1,7 @@
 import { AsyncStorage } from 'react-native';
 import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
-import { ROOT } from '../CONFIG';
+import { ROOT } from '../config';
 import {
   USERNAME_CHANGED,
   PASSWORD_CHANGED,
@@ -65,6 +65,7 @@ const signupUserSuccess = (dispatch) => {
 export const loginUser = ({ username, password }) => {
   return (dispatch) => {
     dispatch({ type: LOGIN_USER });
+    console.log(username, password);
     axios.post(`${ROOT}/login`, {
       username, password
     })
