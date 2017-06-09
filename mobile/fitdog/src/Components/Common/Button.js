@@ -1,41 +1,36 @@
-import React, { Component } from 'react';
-import {
-  TouchableHighlight,
-  Text,
-  StyleSheet
-} from 'react-native';
+import React from 'react';
+import { Text, TouchableOpacity } from 'react-native';
 
-import { white, blue } from '../../styles/base';
+const Button = ({ handlePress, children }) => {
+  const { buttonStyle, textStyle } = styles;
+  return (
+    <TouchableOpacity style={buttonStyle} onPress={() => handlePress()}>
+      <Text style={textStyle}>
+        {children}
+      </Text>
+    </TouchableOpacity>
+  );
+};
 
-export default class Button extends Component {
-  render() {
-    return (
-      <TouchableHighlight
-        style={styles.button}
-        underlayColor={'gray'}
-        onPress={this.props.onPress}
-      >
-        <Text style={styles.buttonText}>{this.props.text}</Text>
-      </TouchableHighlight>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  button: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderRadius: 5,
-    padding: 5,
-    borderColor: blue,
-    marginTop: 10,
-    backgroundColor: blue
-  },
-  buttonText: {
+const styles = {
+  buttonStyle: {
     flex: 1,
+    alignSelf: 'stretch',
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: '#007aff',
+    marginLeft: 5,
+    marginRight: 5
+  },
+  textStyle: {
     alignSelf: 'center',
-    fontSize: 20,
-    color: white
+    color: '#007aff',
+    fontSize: 16,
+    fontWeight: '600',
+    paddingTop: 10,
+    paddingBottom: 10
   }
-});
+};
+
+export { Button };
