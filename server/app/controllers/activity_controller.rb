@@ -1,21 +1,21 @@
 class ActivityController < ApplicationController
   register Sinatra::Namespace
 
-  # before do
-  #   if !logged_in?
-  #     redirect '/login'
-  #   end
-  # end
-
   namespace '/api/v1' do
+
+    before do
+      if !logged_in?(request.env["HTTP_AUTHORIZATION"])
+        halt 401
+      end
+    end
 
     before do
       content_type 'application/json'
     end
 
     get '/activities' do
-      Activity.last(15).reverse.to_json
       # binding.pry
+      Activity.last(15).reverse.to_json
     end
 
     get '/activities/:id' do

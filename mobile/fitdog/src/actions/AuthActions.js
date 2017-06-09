@@ -33,12 +33,12 @@ export const loginUser = ({ username, password }) => {
       username, password
     })
     .then(response => {
-      // console.log(response.data);
       AsyncStorage.setItem('@fitdog:session', response.data.token);
-      AsyncStorage.getItem('@fitdog:session').then(token => {
-        console.log(token);
-      });
+      // AsyncStorage.getItem('@fitdog:session').then(token => {
+      //   console.log(token);
+      // });
     })
+    .then(() => loginUserSuccess(dispatch))
     .catch(error => {
       console.log(error.message);
     });
@@ -49,10 +49,10 @@ const loginUserFail = (dispatch) => {
   dispatch({ type: LOGIN_USER_FAIL });
 };
 
-const loginUserSuccess = (dispatch, user) => {
+const loginUserSuccess = (dispatch) => {
   dispatch({
     type: LOGIN_USER_SUCCESS,
-    payload: user
+    // payload: user
   });
 
   Actions.main();

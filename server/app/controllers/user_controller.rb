@@ -16,10 +16,9 @@ class UserController < ApplicationController
         password: params[:password]
       )
       if user.errors.messages.empty?
-        session[:user_id] = user.id
-        redirect '/activities'
-      # else
-      #   erb :'/users/signup'
+        { token: token(user.id) }.to_json
+      else
+        halt 401
       end
     end
 
@@ -27,16 +26,10 @@ class UserController < ApplicationController
       req = parseRequest(request)
       user = User.find_by(username: req[:username].downcase)
       if user && user.authenticate(req[:password])
-        # binding.pry
-        { token: token(user.username) }.to_json
+        { token: token(user.id) }.to_json
       else
         halt 401
       end
     end
-
-    # get '/logout' do
-    #   session.clear
-    #   redirect '/login'
-    # end
   end
 end
