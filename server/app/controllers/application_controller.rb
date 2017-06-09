@@ -24,5 +24,9 @@ class ApplicationController < Sinatra::Base
     def parse_error_message(hash)
       "#{hash[0].to_s} #{hash[1][0]}"
     end
+
+    def parseRequest(req)
+      JSON.parse(request.body.read).with_indifferent_access
+    end
   end
 end
