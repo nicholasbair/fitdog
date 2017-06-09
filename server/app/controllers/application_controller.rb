@@ -19,16 +19,7 @@ class ApplicationController < Sinatra::Base
     # end
 
     def decode_token(token)
-      # Server will rec
-      # {"token"=>"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.Im5pY2si.YSSxCdQPj4iNN57SA-oTpCHgRBEMu8fddAwwEAmv224"}
-      # Expected input is value of above hash
-      # JSON.parse(hash).with_indifferent_access
-      # begin
         JWT.decode token, ENV['JWT_SECRET'], true, { algorithm: 'HS256' }
-        # ["nick", {"typ"=>"JWT", "alg"=>"HS256"}]
-      # rescue JWT::DecodeError
-      #   [401, { 'Content-Type' => 'text/plain' }, ['A token must be passed.']]
-      # end
     end
 
     def logged_in?(token)

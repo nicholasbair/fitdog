@@ -6,8 +6,6 @@ import {
 const INITIAL_STATE = {
   activities: [],
   loading: false
-  // ,
-  // activity: null
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -16,8 +14,6 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, loading: true };
     case FETCH_ACTIVITIES_SUCCESS:
       return { ...state, loading: false, activities: action.payload };
-    // case FETCH_ACTIVITY:
-    //   return action.payload;
     default:
       return state;
   }

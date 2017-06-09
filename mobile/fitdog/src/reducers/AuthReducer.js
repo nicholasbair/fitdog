@@ -30,17 +30,7 @@ export default (state = INITIAL_STATE, action) => {
     case LOGIN_USER:
       return { ...state, loading: true, error: '' };
     case LOGIN_USER_SUCCESS:
-      // SHORT FORM:
       return { ...state, ...INITIAL_STATE };
-      // LONG FORM:
-      // return {
-      //   ...state,
-      //   user: action.payload,
-      //   error: '',
-      //   loading: false,
-      //   email: '',
-      //   password: ''
-      // };
     case SIGNUP_USER_FAIL:
       return {
         ...state,

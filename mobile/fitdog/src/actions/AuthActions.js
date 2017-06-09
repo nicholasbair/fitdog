@@ -1,6 +1,7 @@
 import { AsyncStorage } from 'react-native';
 import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
+import { ROOT } from '../CONFIG';
 import {
   USERNAME_CHANGED,
   PASSWORD_CHANGED,
@@ -12,9 +13,6 @@ import {
   SIGNUP_USER_SUCCESS,
   SIGNUP_USER_FAIL,
 } from './types';
-
-// TODO: move to dotenv file
-const ROOT = 'http://127.0.0.1:9393/api/v1';
 
 export const usernameChanged = (text) => {
   return {
