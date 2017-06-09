@@ -14,8 +14,7 @@ class ActivityController < ApplicationController
     end
 
     get '/activities' do
-      # binding.pry
-      Activity.last(15).reverse.to_json
+      Activity.last(100).reverse.to_json
     end
 
     get '/activities/:id' do

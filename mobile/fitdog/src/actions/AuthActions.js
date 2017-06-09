@@ -4,9 +4,13 @@ import { Actions } from 'react-native-router-flux';
 import {
   USERNAME_CHANGED,
   PASSWORD_CHANGED,
+  EMAIL_CHANGED,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAIL,
-  LOGIN_USER
+  LOGIN_USER,
+  SIGNUP_USER,
+  SIGNUP_USER_SUCCESS,
+  SIGNUP_USER_FAIL,
 } from './types';
 
 // TODO: move to dotenv file
@@ -24,6 +28,40 @@ export const passwordChanged = (text) => {
     type: PASSWORD_CHANGED,
     payload: text
   };
+};
+
+export const emailChanged = (text) => {
+  return {
+    type: EMAIL_CHANGED,
+    payload: text
+  };
+};
+
+export const signupUser = ({ username, email, password }) => {
+  return (dispatch) =>{
+    dispatch({ type: SIGNUP_USER });
+    axios.post(`${ROOT}/signup`, {
+      username, email, password
+    })
+    .then(response => {
+      AsyncStorage.setItem('@fitdog:session', response.data.token);
+    })
+    .then(() => signupUserSuccess(dispatch))
+    .catch(error => {
+      console.log(error.message);
+      signupUserFail(dispatch);
+    });
+  };
+};
+
+const signupUserFail = (dispatch) => {
+  dispatch({ type: SIGNUP_USER_FAIL });
+};
+
+const signupUserSuccess = (dispatch) => {
+  dispatch({ type: SIGNUP_USER_SUCCESS });
+
+  Actions.main();
 };
 
 export const loginUser = ({ username, password }) => {

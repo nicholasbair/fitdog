@@ -10,10 +10,11 @@ class UserController < ApplicationController
     end
 
     post '/signup' do
+      req = parseRequest(request)
       user = User.create(
-        username: params[:username],
-        email: params[:email],
-        password: params[:password]
+        username: req[:username].downcase,
+        email: req[:email],
+        password: req[:password]
       )
       if user.errors.messages.empty?
         { token: token(user.id) }.to_json
