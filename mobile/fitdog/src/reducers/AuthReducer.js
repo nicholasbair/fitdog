@@ -9,7 +9,7 @@ import {
 const INITIAL_STATE = {
   username: '',
   password: '',
-  user: null,
+  // user: null,
   error: '',
   loading: false
 };
@@ -24,7 +24,7 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, loading: true, error: '' };
     case LOGIN_USER_SUCCESS:
       // SHORT FORM:
-      return { ...state, ...INITIAL_STATE, user: action.payload };
+      return { ...state, ...INITIAL_STATE };
       // LONG FORM:
       // return {
       //   ...state,

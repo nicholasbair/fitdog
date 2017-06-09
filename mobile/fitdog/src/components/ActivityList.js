@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchActivities } from '../actions';
 import { ListView, View, Text } from 'react-native';
+import ListItem from './ListItem';
 
 class ActivityList extends Component {
   componentWillMount() {
@@ -22,16 +23,18 @@ class ActivityList extends Component {
     this.dataSource = ds.cloneWithRows(activities);
   }
 
+  renderRow(activity) {
+    return (
+      <ListItem activity={activity} />
+    );
+  }
+
   render() {
     return (
-      <View>
-        <Text>Activity Item</Text>
-        <Text>Activity Item</Text>
-        <Text>Activity Item</Text>
-        <Text>Activity Item</Text>
-        <Text>Activity Item</Text>
-        <Text>Activity Item</Text>
-      </View>
+      <ListView
+        dataSource={this.dataSource}
+        renderRow={this.renderRow}
+      />
     );
   }
 }

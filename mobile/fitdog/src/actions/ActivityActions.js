@@ -16,6 +16,7 @@ export const fetchActivities = () => {
   return (dispatch) => {
     axios.get(`${ROOT}/activities`)
     .then(response => {
+      // console.log(response.data);
       dispatch({ type: FETCH_ACTIVITIES_SUCCESS, payload: response.data });
     });
   };
