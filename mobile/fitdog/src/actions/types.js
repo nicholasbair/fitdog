@@ -10,3 +10,4 @@ export const SIGNUP_USER_FAIL = 'login_user_fail';
 
 export const FETCH_ACTIVITIES_SUCCESS = 'fetch_activities_success';
 export const FETCH_ACTIVITIES = 'fetch_activities';
+export const DELETE_ACTIVITY = 'delete_activity';

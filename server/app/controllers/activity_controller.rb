@@ -22,6 +22,15 @@ class ActivityController < ApplicationController
       Activity.find(req[:id]).to_json
     end
 
+    delete '/activities/:id/delete' do
+      activity = Activity.find(params[:id])
+      if activity.user_id == current_user(request.env["HTTP_AUTHORIZATION"]).id
+        Activity.destroy(activity.id)
+      else
+        halt 401
+      end
+    end
+
     # -------------------------------------------------------
     # These do not work yet
 
@@ -53,14 +62,6 @@ class ActivityController < ApplicationController
         @dogs = current_user.dogs
         erb :'activities/edit'
       end
-    end
-
-    delete '/activities/:id/delete' do
-      activity = Activity.find(params[:id])
-      if activity.user_id == current_user.id
-        Activity.destroy(activity.id)
-      end
-      redirect '/activities'
     end
   end
 end

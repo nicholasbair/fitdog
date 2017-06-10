@@ -65,7 +65,6 @@ const signupUserSuccess = (dispatch) => {
 export const loginUser = ({ username, password }) => {
   return (dispatch) => {
     dispatch({ type: LOGIN_USER });
-    console.log(username, password);
     axios.post(`${ROOT}/login`, {
       username, password
     })
