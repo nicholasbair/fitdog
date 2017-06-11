@@ -8,7 +8,8 @@ import {
   DELETE_ACTIVITY,
   ACTIVITY_NAME_CHANGED,
   ACTIVITY_DURATION_CHANGED,
-  ACTIVITY_DOGS_CHANGED,
+  ACTIVITY_ADD_DOG,
+  ACTIVITY_REMOVE_DOG,
   ADD_ACTIVITY
 } from './types';
 
@@ -30,10 +31,16 @@ export const activityDurationChanged = text => {
   };
 };
 
-export const activityDogsChanged = dogs => {
+export const activityAddDog = dog => {
   return {
-    type: ACTIVITY_DOGS_CHANGED,
-    payload: dogs
+    type: ACTIVITY_ADD_DOG,
+    payload: dog
+  };
+};
+export const activityRemoveDog = dog => {
+  return {
+    type: ACTIVITY_REMOVE_DOG,
+    payload: dog
   };
 };
 

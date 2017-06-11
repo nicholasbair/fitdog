@@ -15,7 +15,8 @@ export const FETCH_ACTIVITIES = 'fetch_activities';
 export const DELETE_ACTIVITY = 'delete_activity';
 export const ACTIVITY_DURATION_CHANGED = 'activity_duration_changed';
 export const ACTIVITY_NAME_CHANGED = 'activity_name_changed';
-export const ACTIVITY_DOGS_CHANGED = 'activity_dogs_changed';
+export const ACTIVITY_ADD_DOG = 'activity_add_dog';
+export const ACTIVITY_REMOVE_DOG = 'activity_remove_dog';
 export const ADD_ACTIVITY = 'add_activity';
 
 // Dog Actions

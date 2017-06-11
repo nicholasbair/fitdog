@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import CheckBox from 'react-native-checkbox';
 import {
   activityNameChanged,
   activityDurationChanged,
-  activityDogsChanged,
+  activityAddDog,
+  activityRemoveDog,
   addActivity
 } from '../actions';
-import { Card, CardSection, Input, Button, Spinner } from './common';
+import { Card, CardSection, Input, Button } from './common';
 
 class ActivityForm extends Component {
   onNameChange(text) {
@@ -19,8 +20,12 @@ class ActivityForm extends Component {
     this.props.activityDurationChanged(text);
   }
 
-  onDogsChange(text) {
-    this.props.activityDogsChanged(text);
+  onDogChange(id) {
+    if (this.props.selectedDogs.includes(id)) {
+      this.props.activityRemoveDog(id);
+    } else {
+      this.props.activityAddDog(id);
+    }
   }
 
   onButtonPress() {
@@ -33,18 +38,14 @@ class ActivityForm extends Component {
       <CheckBox
         key={dog.id}
         label={dog.name}
-        checked={false}
-        onChange={() => console.log('changing')}
+        checked={this.props.selectedDogs.includes(dog.id)}
+        onChange={() => this.onDogChange(dog.id)}
       />
     );
   }
 
-
-// User spinner until dogs are successfully loaded
-// <Spinner size="large" />;
-
   render() {
-    console.log(this.props);
+    console.log(this.props.selectedDogs);
     return (
       <Card>
         <CardSection>
@@ -64,7 +65,9 @@ class ActivityForm extends Component {
           />
         </CardSection>
         <CardSection>
-          {this.renderDogs()}
+          <View style={{ marginLeft: 18 }}>
+            {this.renderDogs()}
+          </View>
         </CardSection>
         <Text style={styles.errorTextStyle}>
           {this.props.error}
@@ -97,6 +100,7 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps, {
   activityNameChanged,
   activityDurationChanged,
-  activityDogsChanged,
+  activityAddDog,
+  activityRemoveDog,
   addActivity
 })(ActivityForm);

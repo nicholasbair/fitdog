@@ -1,6 +1,7 @@
 import {
   ACTIVITY_NAME_CHANGED,
-  ACTIVITY_DOGS_CHANGED,
+  ACTIVITY_ADD_DOG,
+  ACTIVITY_REMOVE_DOG,
   ACTIVITY_DURATION_CHANGED
 } from '../actions/types';
 
@@ -18,8 +19,10 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, name: action.payload };
     case ACTIVITY_DURATION_CHANGED:
       return { ...state, duration: action.payload };
-    case ACTIVITY_DOGS_CHANGED:
-      return { ...state, dogs: action.payload };
+    case ACTIVITY_ADD_DOG:
+      return { ...state, dogs: [...state.dogs, action.payload] };
+    case ACTIVITY_REMOVE_DOG:
+      return { ...state, dogs: state.dogs.filter(e => e !== action.payload) };
     default:
       return state;
   }
