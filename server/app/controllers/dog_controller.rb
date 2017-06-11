@@ -14,7 +14,7 @@ class DogController < ApplicationController
     end
 
     get '/dogs' do
-      current_user(token).dogs
+      current_user(request.env["HTTP_AUTHORIZATION"]).dogs.to_json
     end
 
     get '/dogs/:id' do

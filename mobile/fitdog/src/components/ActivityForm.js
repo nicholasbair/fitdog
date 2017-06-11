@@ -6,11 +6,16 @@ import {
   activityNameChanged,
   activityDurationChanged,
   activityDogsChanged,
-  addActivity
+  addActivity,
+  fetchDogs
 } from '../actions';
 import { Card, CardSection, Input, Button, Spinner } from './common';
 
 class ActivityForm extends Component {
+  componentWillMount() {
+    this.props.fetchDogs();
+  }
+
   onNameChange(text) {
     this.props.activityNameChanged(text);
   }
@@ -24,8 +29,18 @@ class ActivityForm extends Component {
   }
 
   onButtonPress() {
-    const { name, duration, dogs } = this.props;
-    this.props.addActivity({ name, duration, dogs });
+    const { name, duration, selectedDogs } = this.props;
+    this.props.addActivity({ name, duration, dogs: selectedDogs });
+  }
+
+  renderDogs() {
+    return this.props.dogs.map(dog =>
+      <CheckBox
+        key={dog.id}
+        label={dog.name}
+        checked={false}
+      />
+    );
   }
 
   renderButton() {
@@ -41,6 +56,7 @@ class ActivityForm extends Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       <Card>
         <CardSection>
@@ -60,12 +76,7 @@ class ActivityForm extends Component {
           />
         </CardSection>
         <CardSection>
-          <Input
-            label="Dogs"
-            placeholder="Fiddo"
-            onChangeText={this.onDogsChange.bind(this)}
-            value={this.props.dogs}
-          />
+          {this.renderDogs()}
         </CardSection>
         <Text style={styles.errorTextStyle}>
           {this.props.error}
@@ -87,14 +98,16 @@ const styles = {
 };
 
 const mapStateToProps = state => {
-  const { name, duration, dogs, error } = state.activityForm;
+  const { name, duration, dogs: selectedDogs, error } = state.activityForm;
+  const { dogs } = state.dogs;
 
-  return { name, duration, dogs, error };
+  return { name, duration, selectedDogs, error, dogs };
 };
 
 export default connect(mapStateToProps, {
   activityNameChanged,
   activityDurationChanged,
   activityDogsChanged,
-  addActivity
+  addActivity,
+  fetchDogs
 })(ActivityForm);
