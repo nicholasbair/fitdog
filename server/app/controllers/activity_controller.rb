@@ -31,22 +31,17 @@ class ActivityController < ApplicationController
       end
     end
 
+    post '/activities' do
+      req = parseRequest(request)
+      current_user(request.env["HTTP_AUTHORIZATION"]).activities.build(
+      name: req[:name],
+      duration: req[:duration],
+      dog_ids: req[:dogs]
+      ).save
+    end
+
     # -------------------------------------------------------
     # These do not work yet
-
-    post '/activities' do
-      if !params[:dogs].nil?
-        current_user.activities.build(
-        name: params[:name],
-        duration: params[:duration],
-        dog_ids: params[:dogs]
-        ).save
-        redirect '/activities'
-      else
-        @dogs = current_user.dogs
-        erb :'/activities/new'
-      end
-    end
 
     patch '/activities/:id' do
       activity = Activity.find(params[:id])

@@ -45,7 +45,6 @@ class ActivityForm extends Component {
   }
 
   render() {
-    console.log(this.props.selectedDogs);
     return (
       <Card>
         <CardSection>
