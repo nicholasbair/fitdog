@@ -70,8 +70,8 @@ export const loginUser = ({ username, password }) => {
     })
     .then(response => {
       AsyncStorage.setItem('@fitdog:session', response.data.token);
+      loginUserSuccess(dispatch, response.data.user);
     })
-    .then(() => loginUserSuccess(dispatch))
     .catch(error => {
       console.log(error.message);
       loginUserFail(dispatch);
@@ -83,8 +83,8 @@ const loginUserFail = (dispatch) => {
   dispatch({ type: LOGIN_USER_FAIL });
 };
 
-const loginUserSuccess = (dispatch) => {
-  dispatch({ type: LOGIN_USER_SUCCESS });
+const loginUserSuccess = (dispatch, user) => {
+  dispatch({ type: LOGIN_USER_SUCCESS, payload: user });
 
   Actions.main();
 };

@@ -14,7 +14,7 @@ const INITIAL_STATE = {
   username: '',
   password: '',
   email: '',
-  // user: null,
+  user: null,
   error: '',
   loading: false
 };
@@ -30,7 +30,7 @@ export default (state = INITIAL_STATE, action) => {
     case LOGIN_USER:
       return { ...state, loading: true, error: '' };
     case LOGIN_USER_SUCCESS:
-      return { ...state, ...INITIAL_STATE };
+      return { ...state, ...INITIAL_STATE, user: action.payload };
     case SIGNUP_USER_FAIL:
       return {
         ...state,
@@ -41,7 +41,7 @@ export default (state = INITIAL_STATE, action) => {
     case SIGNUP_USER:
       return { ...state, loading: true, error: '' };
     case SIGNUP_USER_SUCCESS:
-      return { ...state, ...INITIAL_STATE };
+      return { ...state, ...INITIAL_STATE, user: action.payload };
     case LOGIN_USER_FAIL:
       return {
         ...state,

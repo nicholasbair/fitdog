@@ -17,7 +17,14 @@ class UserController < ApplicationController
         password: req[:password]
       )
       if user.errors.messages.empty?
-        { token: token(user.id) }.to_json
+        {
+          token: token(user.id),
+          # Don't send the entire user instance, which includes password_digest
+          user: {
+            id: user.id,
+            username: user.username
+          }
+        }.to_json
       else
         halt 401
       end
@@ -27,7 +34,14 @@ class UserController < ApplicationController
       req = parseRequest(request)
       user = User.find_by(username: req[:username].downcase)
       if user && user.authenticate(req[:password])
-        { token: token(user.id) }.to_json
+        {
+          token: token(user.id),
+          # Don't send the entire user instance, which includes password_digest
+          user: {
+            id: user.id,
+            username: user.username
+          }
+        }.to_json
       else
         halt 401
       end
