@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { ListView } from 'react-native';
 import { connect } from 'react-redux';
-import { fetchActivities } from '../actions';
+import { fetchActivities, fetchDogs } from '../actions';
 import { Spinner } from './common';
 import ListItem from './ListItem';
 
 class ActivityList extends Component {
   componentWillMount() {
     this.props.fetchActivities();
+    this.props.fetchDogs();
 
     this.createDataSource(this.props);
   }
@@ -55,4 +56,4 @@ const mapStateToProps = state => {
   return { activities, loading };
 };
 
-export default connect(mapStateToProps, { fetchActivities })(ActivityList);
+export default connect(mapStateToProps, { fetchActivities, fetchDogs })(ActivityList);

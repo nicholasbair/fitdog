@@ -6,16 +6,11 @@ import {
   activityNameChanged,
   activityDurationChanged,
   activityDogsChanged,
-  addActivity,
-  fetchDogs
+  addActivity
 } from '../actions';
 import { Card, CardSection, Input, Button, Spinner } from './common';
 
 class ActivityForm extends Component {
-  componentWillMount() {
-    this.props.fetchDogs();
-  }
-
   onNameChange(text) {
     this.props.activityNameChanged(text);
   }
@@ -39,21 +34,14 @@ class ActivityForm extends Component {
         key={dog.id}
         label={dog.name}
         checked={false}
+        onChange={() => console.log('changing')}
       />
     );
   }
 
-  renderButton() {
-    if (this.props.loading) {
-      return <Spinner size="large" />;
-    }
 
-    return (
-      <Button onPress={this.onButtonPress.bind(this)}>
-        Add Activity
-      </Button>
-    );
-  }
+// User spinner until dogs are successfully loaded
+// <Spinner size="large" />;
 
   render() {
     console.log(this.props);
@@ -82,7 +70,9 @@ class ActivityForm extends Component {
           {this.props.error}
         </Text>
         <CardSection>
-          {this.renderButton()}
+          <Button onPress={this.onButtonPress.bind(this)}>
+            Add Activity
+          </Button>
         </CardSection>
       </Card>
     );
@@ -108,6 +98,5 @@ export default connect(mapStateToProps, {
   activityNameChanged,
   activityDurationChanged,
   activityDogsChanged,
-  addActivity,
-  fetchDogs
+  addActivity
 })(ActivityForm);
