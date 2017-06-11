@@ -5,10 +5,10 @@ After completing my Sinatra portfolio project [dogtracker](https://github.com/ni
 It is worth mentioning that my focus was the mechanics of building the server, and wiring up Redux in the mobile app.  While styling and UX are important, they were not my focus here.
 
 ## Project Goals
-[ ] - Refactor Sinatra web app to serve API
-[ ] - Build simple React Native app to consume API
-[ ] - Support user authentication
-[ ] - Support basic CRUD for:
-  [ ] - User
-  [ ] - Dogs
-  [ ] - Activities
+- [ ] Refactor Sinatra web app to serve API
+- [ ] Build simple React Native app to consume API
+- [ ] Support user authentication
+- [ ] Support basic CRUD for:
+  - [ ] User
+  - [ ] Dogs
+  - [ ] Activities
