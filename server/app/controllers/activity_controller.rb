@@ -44,18 +44,16 @@ class ActivityController < ApplicationController
     # These do not work yet
 
     patch '/activities/:id' do
+      req = parseRequest(request)
       activity = Activity.find(params[:id])
-      if activity.user_id == current_user.id && !params[:dogs].nil?
+      if activity.user_id == current_user(request.env["HTTP_AUTHORIZATION"]).id && !params[:dogs].nil?
         activity.update(
-        name: params[:name],
-        duration: params[:duration],
-        dog_ids: params[:dogs]
+        name: req[:name],
+        duration: req[:duration],
+        dog_ids: req[:dogs]
         )
-        redirect '/activities'
       else
-        @activity = Activity.find(params[:id])
-        @dogs = current_user.dogs
-        erb :'activities/edit'
+        halt 401
       end
     end
   end
