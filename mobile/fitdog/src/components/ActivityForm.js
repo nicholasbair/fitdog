@@ -51,7 +51,7 @@ class ActivityForm extends Component {
           <Input
             label="Name"
             placeholder="walk"
-            onChangeText={() => this.onNameChange()}
+            onChangeText={this.onNameChange.bind(this)}
             value={this.props.name}
           />
         </CardSection>
@@ -59,7 +59,7 @@ class ActivityForm extends Component {
           <Input
             label="Duration"
             placeholder="20"
-            onChangeText={() => this.onDurationChange()}
+            onChangeText={this.onDurationChange.bind(this)}
             value={this.props.duration}
           />
         </CardSection>
