@@ -6,18 +6,6 @@ class ApplicationController < Sinatra::Base
       JWT.encode userId.to_s, ENV['JWT_SECRET'], 'HS256'
     end
 
-    # def payload(username)
-    #   {
-    #     exp: Time.now.to_i + 60 * 60,
-    #     iat: Time.now.to_i,
-    #     iss: ENV['JWT_ISSUER'],
-    #     # scopes: ['add_stuff', 'remove_stuff'],
-    #     user: {
-    #       username: username
-    #     }
-    #   }
-    # end
-
     def decode_token(token)
         JWT.decode token, ENV['JWT_SECRET'], true, { algorithm: 'HS256' }
     end

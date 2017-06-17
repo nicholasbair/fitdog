@@ -17,12 +17,6 @@ class ActivityController < ApplicationController
       Activity.last(100).reverse.to_json
     end
 
-    # Is this needed if '/activities' is stored in app state?
-    get '/activities/:id' do
-      req = parseRequest(request)
-      Activity.find(req[:id]).to_json
-    end
-
     delete '/activities/:id/delete' do
       activity = Activity.find(params[:id])
       if activity.user_id == current_user(request.env["HTTP_AUTHORIZATION"]).id
