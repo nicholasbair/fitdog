@@ -1,5 +1,3 @@
-require 'json';
-
 class UserController < ApplicationController
   register Sinatra::Namespace
 
@@ -11,15 +9,14 @@ class UserController < ApplicationController
 
     post '/signup' do
       req = parseRequest(request)
-      user = User.create(
+      user = User.new(
         username: req[:username].downcase,
         email: req[:email],
         password: req[:password]
       )
-      if user.errors.messages.empty?
+      if user.save
         {
           token: token(user.id),
-          # Don't send the entire user instance, which includes password_digest
           user: {
             id: user.id,
             username: user.username
@@ -36,7 +33,6 @@ class UserController < ApplicationController
       if user && user.authenticate(req[:password])
         {
           token: token(user.id),
-          # Don't send the entire user instance, which includes password_digest
           user: {
             id: user.id,
             username: user.username

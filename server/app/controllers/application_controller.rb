@@ -23,13 +23,12 @@ class ApplicationController < Sinatra::Base
     end
 
     def logged_in?(token)
-      user_id = decode_token(token)[0]
-      !!User.find(user_id)
+      !!current_user(token)
     end
 
     def current_user(token)
       user_id = decode_token(token)[0]
-      @current_user ||= User.find(user_id)
+      @current_user ||= User.find_by(id: user_id)
     end
 
     def parseRequest(req)

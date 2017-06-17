@@ -17,6 +17,7 @@ class ActivityController < ApplicationController
       Activity.last(100).reverse.to_json
     end
 
+    # Is this needed if '/activities' is stored in app state?
     get '/activities/:id' do
       req = parseRequest(request)
       Activity.find(req[:id]).to_json
