@@ -3,10 +3,12 @@ import {
   ACTIVITY_ADD_DOG,
   ACTIVITY_REMOVE_DOG,
   ACTIVITY_DURATION_CHANGED,
-  ADD_ACTIVITY_SUCCESS
+  ADD_ACTIVITY_SUCCESS,
+  SHOW_EDIT_ACTIVITY
 } from '../actions/types';
 
 const INITIAL_STATE = {
+  id: '',
   name: '',
   duration: '',
   dogs: [],
@@ -16,6 +18,13 @@ const INITIAL_STATE = {
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case SHOW_EDIT_ACTIVITY:
+      return {
+        ...state,
+        id: action.payload.id,
+        name: action.payload.name,
+        duration: action.payload.duration.toString()
+      };
     case ACTIVITY_NAME_CHANGED:
       return { ...state, name: action.payload };
     case ACTIVITY_DURATION_CHANGED:

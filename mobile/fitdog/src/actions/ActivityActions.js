@@ -11,7 +11,10 @@ import {
   ACTIVITY_ADD_DOG,
   ACTIVITY_REMOVE_DOG,
   ADD_ACTIVITY,
-  ADD_ACTIVITY_SUCCESS
+  ADD_ACTIVITY_SUCCESS,
+  SHOW_EDIT_ACTIVITY,
+  EDIT_ACTIVITY,
+  EDIT_ACTIVITY_SUCCESS
 } from './types';
 
 AsyncStorage.getItem('@fitdog:session').then(token => {
@@ -51,8 +54,34 @@ export const addActivity = ({ name, duration, dogs }) => {
     axios.post(`${ROOT}/activities`, {
       name, duration, dogs
     })
-      .then(response => {
+      .then(() => {
         dispatch({ type: ADD_ACTIVITY_SUCCESS });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+      Actions.activityList();
+  };
+};
+
+export const showEditActivity = ({ activity }) => {
+  return (dispatch) => {
+    dispatch({
+      type: SHOW_EDIT_ACTIVITY,
+      payload: activity
+    });
+    Actions.activityForm();
+  };
+};
+
+export const editActivity = ({ id, name, duration, dogs }) => {
+  return (dispatch) => {
+    dispatch({ type: EDIT_ACTIVITY });
+    axios.patch(`${ROOT}/activities/${id}`, {
+      name, duration, dogs
+    })
+      .then(() => {
+        dispatch({ type: EDIT_ACTIVITY_SUCCESS });
       })
       .catch(error => {
         console.log(error);

@@ -46,7 +46,6 @@ class ActivityList extends Component {
   }
 
   render() {
-    console.log(this.props.activities);
     return this.renderList();
   }
 }

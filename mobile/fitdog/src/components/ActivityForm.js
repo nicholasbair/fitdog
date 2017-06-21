@@ -7,7 +7,8 @@ import {
   activityDurationChanged,
   activityAddDog,
   activityRemoveDog,
-  addActivity
+  addActivity,
+  editActivity
 } from '../actions';
 import { Card, CardSection, Input, Button } from './common';
 
@@ -29,8 +30,12 @@ class ActivityForm extends Component {
   }
 
   onButtonPress() {
-    const { name, duration, selectedDogs } = this.props;
-    this.props.addActivity({ name, duration, dogs: selectedDogs });
+    const { name, duration, selectedDogs, id } = this.props;
+    if (id) {
+      this.props.editActivity({ id, name, duration, dogs: selectedDogs });
+    } else {
+      this.props.addActivity({ name, duration, dogs: selectedDogs });
+    }
   }
 
   renderDogs() {
@@ -90,10 +95,10 @@ const styles = {
 };
 
 const mapStateToProps = state => {
-  const { name, duration, dogs: selectedDogs, error } = state.activityForm;
+  const { name, duration, dogs: selectedDogs, error, id } = state.activityForm;
   const { dogs } = state.dogs;
 
-  return { name, duration, selectedDogs, error, dogs };
+  return { name, duration, selectedDogs, error, dogs, id };
 };
 
 export default connect(mapStateToProps, {
@@ -101,5 +106,6 @@ export default connect(mapStateToProps, {
   activityDurationChanged,
   activityAddDog,
   activityRemoveDog,
-  addActivity
+  addActivity,
+  editActivity
 })(ActivityForm);

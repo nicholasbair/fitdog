@@ -39,6 +39,7 @@ class ActivityController < ApplicationController
     # These do not work yet
 
     patch '/activities/:id' do
+      binding.pry
       req = parseRequest(request)
       activity = Activity.find(params[:id])
       if activity.user_id == current_user(request.env["HTTP_AUTHORIZATION"]).id && !params[:dogs].nil?

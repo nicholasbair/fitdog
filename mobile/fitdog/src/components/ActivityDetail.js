@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
 import { View, Text, Image } from 'react-native';
 import { connect } from 'react-redux';
-import { deleteActivity } from '../actions';
+import { deleteActivity, showEditActivity } from '../actions';
 import { Button, Card, CardSection } from './common';
+import { Actions } from 'react-native-router-flux';
 
 class ActivityDetail extends Component {
   handleDeletePress() {
     this.props.deleteActivity(this.props.activity.id);
+  }
+
+  handleEditPress() {
+    const { activity } = this.props;
+
+    this.props.showEditActivity({ activity });
   }
 
   renderButtons() {
@@ -15,7 +22,7 @@ class ActivityDetail extends Component {
       return (
         <View>
           <CardSection>
-            <Button>
+            <Button onPress={this.handleEditPress.bind(this)}>
               Edit
             </Button>
           </CardSection>
@@ -85,4 +92,4 @@ const mapStateToProps = state => {
   return { user };
 };
 
-export default connect(mapStateToProps, { deleteActivity })(ActivityDetail);
+export default connect(mapStateToProps, { deleteActivity, showEditActivity })(ActivityDetail);

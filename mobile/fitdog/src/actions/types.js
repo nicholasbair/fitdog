@@ -19,6 +19,9 @@ export const ACTIVITY_ADD_DOG = 'activity_add_dog';
 export const ACTIVITY_REMOVE_DOG = 'activity_remove_dog';
 export const ADD_ACTIVITY = 'add_activity';
 export const ADD_ACTIVITY_SUCCESS = 'add_activity_success';
+export const SHOW_EDIT_ACTIVITY = 'show_edit_activity';
+export const EDIT_ACTIVITY = 'edit_activity';
+export const EDIT_ACTIVITY_SUCCESS = 'edit_activity_success';
 
 // Dog Actions
 export const FETCH_DOGS = 'fetch_dogs';
